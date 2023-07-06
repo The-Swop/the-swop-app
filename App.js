@@ -7,7 +7,7 @@ class MyWeb extends Component {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <WebView 
-          source={{ uri: 'https://kvyr2-jyaaa-aaaam-qbaca-cai.ic0.app/' }} 
+          source={{ uri: 'https://aixb6-aqaaa-aaaap-qbjmq-cai.raw.icp0.io/' }} 
         />
       </SafeAreaView>
     );
