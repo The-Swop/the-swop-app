@@ -11,7 +11,7 @@ import Navigation from './navigation'
 LogBox.ignoreAllLogs(true)
 
 import { StatusBar } from 'expo-status-bar';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, FlatList, Image, View } from 'react-native';
 
 import React, { useState } from "react"
 import * as cyclesIDL from "./interfaces/cmc";
@@ -84,18 +84,43 @@ function App() {
 
   const notice: string = "(Based On ICP>XDR)";
 
-  return (
-    <View style={styles.container}> 
-        <View style={styles.stats}>
-            <Text style={styles.header6}>TOTAL TIME TO BURN 1 ICP</Text>
-            <Text style={{ color: "#fc609d" }}>{timeResult}</Text>
-            <Text style={{ color: "#f5f5f7", fontSize: 17 }}>{notice}</Text>
-            <View style={styles.credits}>
-              
-            </View>
-        </View>
-    </View>
+  const posts = [
+    { id: '1', title: 'First post', content: 'This is the 1st post.' },
+    { id: '2', title: 'Second post', content: 'This is the 2nd post.' },
+    { id: '3', title: 'Third post', content: 'This is the 3rd post.' },
+    { id: '4', title: 'Fourth post', content: 'This is the 4th post.' },
+  ];
 
-  )
+  const renderPost = ({ item }) => (
+    <View style={styles.postContainer}>
+      <Text style={styles.postTitle}>{item.title}</Text>
+      <Text style={styles.postContent}>{item.content}</Text>
+      <Image
+        style={styles.postImage}
+        source={require('./assets/images/outpost.png')}
+      />
+    </View>
+  );
+
+  return (
+  <View style={styles.container}>
+    <View style={styles.header}>
+      <Image
+        style={styles.image}
+        source={require('./assets/images/header.png')}
+      />
+    </View>
+    <FlatList
+      data={posts}
+      renderItem={renderPost}
+      keyExtractor={item => item.id}
+    />
+     <View style={styles.footer}>
+      <Text style={styles.footerText}>This is a footer</Text>
+    </View>
+  </View>
+);
+
+  
 }
 export default App;

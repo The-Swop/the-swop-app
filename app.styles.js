@@ -3,14 +3,48 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
-        margin: 0,
+        flex: 1,
         backgroundColor: '#000',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     },
+    footer: {
+        backgroundColor: 'darkgrey',
+        width: '100%',
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        bottom: 0
+      },
+      footerText: {
+        color: '#fff',
+        fontSize: 16,
+      },
+    postContainer: {
+        backgroundColor: '#000', // change this to the color you want for the post background
+        margin: 10,
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center', 
+        justifyContent: 'center', 
+      },
+      postTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        color: '#fff', // White text color
+      },
+      postContent: {
+        fontSize: 16,
+        marginBottom: 10,
+        color: '#fff', // White text color
+      },
+      postImage: {
+        width: '100%', 
+        height: 200, // adjust this based on the size you want for the image
+        resizeMode: 'contain', // or 'cover'
+      },
     stats: {
         width: '80%',
         display: 'flex',
@@ -46,6 +80,21 @@ const styles = StyleSheet.create({
         width: 150,
         margin: 5
     },
-});
+    
+    header: {
+        height: 200,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#000',
+      },
+      image: {
+        width: "100%",
+        height: 150
+      },
+    }
+    
+    
+);
 
 export default styles;
