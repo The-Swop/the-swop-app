@@ -1,29 +1,63 @@
-## ICP Burn Rate Calculator v2.1
+# Example of how to use Expo (React Native) with Internet Computer
 
-Some JS logic to calculate the network wide burn rate of ICP in minutes based off of the XDR>ICP conversion rate and the network wide cycles/s burn rate. Refreshes every 12 seconds.
+Example React Native (in Expo) app.
 
-A deployed on-chain version can be found live here:
+## Canister
 
-https://kvyr2-jyaaa-aaaam-qbaca-cai.ic0.app/
+Canister is already deployed on canister ID `s5ezz-7yaaa-aaaal-qalmq-cai`. So you can run on device without any localhost issues. Source code for canister is under `ic/Main.mo`
 
-### To Setup/Launch:
+## Start packager
 
+Run Expo packager
 ```
-git clone https://github.com/cp-daniel-mccoy/burn-calc.git
-cd burn-calc
-npm install
-dfx start --clean --background
-dfx deploy
+yarn start
 ```
 
-Once deployed locally, your app should be found here:
+## Run iOS app on Simulator
+```
+yarn ios
+```
 
-http://127.0.0.1:8000/?canisterId=rrkah-fqaaa-aaaaa-aaaaq-cai
-<br>
+## Run Android app on Simulator / connected Android device
+```
+yarn android
+```
 
-Planned Updates:
+## Running on iOS real device
+Download Expo Go app on iPhone device & once Expo dev tools appear in browser, scan QR code in app on device to test on device.
 
-* Modularize into a UI component and a separate functional component for use on websites as a plugin.
-* Addition of a rust canister that can act as an API and data logging canister to eventually create and serve past data.
+## Known issue on Android
 
-Author: cp-daniel-mccoy
+Due BigInts not being supported on Android JS Engine. A while loop inside `@dfinity/candid` runs infinitely and thus `await actor.get()` in `HomeScreen.tsx` never returns/completes.
+
+Try to tap Run Query/navigate to screen, app is now locked and unresponsive.
+
+Here's the code that runs forever:
+
+```
+// From node_modules/@dfinity/candid/lib/cjs/utils/leb128.js
+// v0.9.2
+while (true) {
+    const i = Number(value & BigInt(0x7f));
+    value /= BigInt(0x80);
+    // this line is never === 0 and 
+    // thus while loop above runs forever
+    if (value === BigInt(0)) {
+        pipe.write([i]);
+        break;
+    }
+    else {
+        pipe.write([i | 0x80]);
+    }
+}
+```
+
+Using a simple `bigint` polyfill does not resolve the issue.
+
+*Potential solution: @dfinity JS libraries move to using [JSBI](https://github.com/GoogleChromeLabs/jsbi) so it works in an enviornment that does not support BigInt's natively*
+
+## Expo (React Native) JS Engine when running in Debug
+
+Shake phone, and tap Debug Remote JS, you'll notice the app now works on Android. This is because the JS Engine on Android in Debug mode supports BigInt 🤦‍♂️
+
+But that means normal mode and native builds do not #FunTimes 😉

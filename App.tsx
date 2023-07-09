@@ -1,9 +1,23 @@
-import React, { useState } from "react"
-import * as cyclesIDL from "./interfaces/cmc/cmc";
-import { HttpAgent, Actor } from "@dfinity/agent";
-import outpostBuilt from "./assets/outpost-built.png";
-import github from "./assets/github.png";
+import './shim'
 
+import { LogBox } from 'react-native'
+//import { StatusBar } from 'expo-status-bar'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+
+import useCachedResources from './hooks/useCachedResources'
+import useColorScheme from './hooks/useColorScheme'
+import Navigation from './navigation'
+
+LogBox.ignoreAllLogs(true)
+
+import { StatusBar } from 'expo-status-bar';
+import { Alert, StyleSheet, Text, View } from 'react-native';
+
+import React, { useState } from "react"
+import * as cyclesIDL from "./interfaces/cmc";
+import { HttpAgent, Actor } from "@dfinity/agent";
+import styles from './app.styles.js';
+import 'react-native-url-polyfill/auto'
 function App() {
 
   const [timeResult, setTimeResult] = useState("");
@@ -16,7 +30,7 @@ function App() {
     const conversionRate : number = await getConversionRate();
     const burnRate : number = await getBurnRate();
     if (!burnRate) {
-      alert("Please enter a burn rate");
+      Alert.alert("Please enter a burn rate");
       return;
     }
     const secondsToBurnICP = conversionRate / burnRate;
@@ -28,19 +42,24 @@ function App() {
     console.log("Updated!");
   }
 
-  const getBurnRate = async () : Promise<number> => {
+  const getBurnRate = async (): Promise<number> => {
     const burnRateAPI:string = "https://ic-api.internetcomputer.org/api/v3/metrics/cycle-burn-rate";
-    function httpGet(theUrl: string) {
-      let xmlHttpReq = new XMLHttpRequest();
-      xmlHttpReq.open("GET", theUrl, false); 
-      xmlHttpReq.send(null);
-      return xmlHttpReq.responseText;
+    
+    try {
+      const response = await fetch(burnRateAPI);
+      if (!response.ok) {
+        throw new Error('HTTP error ' + response.status);
+      }
+      const jsonResponse = await response.json();
+      const finalResponse = Number(jsonResponse.cycle_burn_rate[0][1]).toFixed(0);
+      return Number(finalResponse);
+    } catch (error) {
+      console.error('Error:', error);
+      // You might want to handle the error differently, maybe even re-throw it
+      return 0;
     }
-    const result = httpGet(burnRateAPI);
-    const jsonResponse = JSON.parse(result);
-    const finalResponse = Number(jsonResponse.cycle_burn_rate[0][1]).toFixed(0);
-    return Number(finalResponse);
   }
+  
 
   const getConversionRate = async () : Promise<number> => {
     const mainnetCyclesCanister: string = "rkp4c-7iaaa-aaaaa-aaaca-cai";
@@ -66,17 +85,17 @@ function App() {
   const notice: string = "(Based On ICP>XDR)";
 
   return (
-    <div className="App">
-      <div className="stats">
-        <h6>TOTAL TIME TO BURN 1 ICP</h6>
-        <p style={{ color: "#fc609d" }}>{timeResult}</p>
-        <p style={{ color: "#f5f5f7", fontSize: "17px" }}>{notice}</p>
-        <div className="credits">
-          <img src={github} onClick={() => window.location.href = "https://github.com/cp-daniel-mccoy/burn-calc"} />
-          <img src={outpostBuilt} onClick={() => window.location.href = "https://twitter.com/EnterOutpost"} />
-        </div>
-      </div>
-    </div>
+    <View style={styles.container}> 
+        <View style={styles.stats}>
+            <Text style={styles.header6}>TOTAL TIME TO BURN 1 ICP</Text>
+            <Text style={{ color: "#fc609d" }}>{timeResult}</Text>
+            <Text style={{ color: "#f5f5f7", fontSize: 17 }}>{notice}</Text>
+            <View style={styles.credits}>
+              
+            </View>
+        </View>
+    </View>
+
   )
 }
 export default App;

@@ -1,31 +1,20 @@
 {
   "canisters": {
-    "ic-burn-calc": {
-      "frontend": {
-        "entrypoint": "dist/index.html"
-      },
-      "source": [
-        "dist/"
-      ],
-      "type": "assets"
+    "counter": {
+      "main": "ic/Main.mo"
     }
   },
+  "dfx": "0.8.1",
   "defaults": {
     "build": {
+      "output": "canisters",
       "packtool": ""
     }
   },
-  "dfx": "0.12.1",
   "networks": {
     "local": {
       "bind": "127.0.0.1:8000",
       "type": "ephemeral"
-    },
-    "ic": {
-      "providers": [
-        "https://mainnet.dfinity.network"
-      ],
-      "type": "persistent"
     }
   },
   "version": 1

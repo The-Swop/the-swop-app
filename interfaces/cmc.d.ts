@@ -40,7 +40,7 @@ export interface _SERVICE {
   'get_subnet_types_to_subnets' : ActorMethod<[], SubnetTypesToSubnetsResponse>,
   'notify_create_canister' : ActorMethod<
     [NotifyCreateCanisterArg],
-    NotifyCreateCanisterResult,
+    NotifyCreateCanisterResult
   >,
   'notify_top_up' : ActorMethod<[NotifyTopUpArg], NotifyTopUpResult>,
 }
