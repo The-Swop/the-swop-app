@@ -1,0 +1,11 @@
+type ManualReply = variant { ok : Post; err : text };
+type ManualReply_1 = variant { ok : Post; err : text };
+type Post = record { id : nat; "text" : text; photo : text };
+service : () -> {
+  createPost : (text, text) -> (ManualReply);
+  deletePost : (nat) -> (text);
+  editPost : (nat, text, text) -> (text);
+  getAllPosts : () -> (vec Post) query;
+  getPostByID : (nat) -> (ManualReply_1) query;
+  seeOwner : () -> (opt principal) query;
+}
