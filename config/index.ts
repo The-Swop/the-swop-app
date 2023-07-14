@@ -1,6 +1,6 @@
 const IS_LOCAL = !!__DEV__
 
-const BACKEND_CANISTER_ID = 's5ezz-7yaaa-aaaal-qalmq-cai'
+const BACKEND_CANISTER_ID = '35nwh-5qaaa-aaaap-qbhtq-cai'
 
 const IC_HOST = 'https://boundary.ic0.app/'
 

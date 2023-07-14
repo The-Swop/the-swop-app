@@ -1,7 +1,7 @@
 import { Actor, HttpAgent, Identity } from '@dfinity/agent'
 
 // @ts-ignore
-import { idlFactory, _SERVICE } from './counter/counter.did'
+import { idlFactory, _SERVICE } from './swopBackend/backend.did'
 
 import { BACKEND_CANISTER_ID, IC_HOST } from '../config'
 
