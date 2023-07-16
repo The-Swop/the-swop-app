@@ -32,9 +32,9 @@ function App() {
   
   let backendActor;
 
-  const loadBackendActor = async (identity?: Identity) => {
+  const loadBackendActor = async () => {
     try {
-      backendActor = await getBackendActor(identity);
+      backendActor = await getBackendActor();
     } catch (e) {
       console.error(e);
     }
@@ -68,6 +68,14 @@ function App() {
     photo: string
   }
 
+
+  const renderItem = ({ item }) => (
+    <View key={item.postID} style={styles.postContainer}>
+      <Text style={styles.postContent}>{item.text}</Text>
+      <Image source={{uri: item.photo}} style={styles.postImage} />
+    </View>
+  );
+
   useEffect(() => {
     const initializeActorAndFetchData = async () => {
       await loadBackendActor();
@@ -82,20 +90,17 @@ function App() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-      <Image
-        source={swopHeader}
-        style={styles.header} // assuming you have a headerImage style in your app.styles.js
-      />
+        <Image
+          source={swopHeader}
+          style={styles.image} 
+        />
       </View>
 
-      <ScrollView>
-        {entriesList.map((entry) => (
-          <View key={entry.postID} style={styles.postContainer}>
-            <Text style={styles.postContent}>{entry.text}</Text>
-            <Image source={{uri: entry.photo}} style={styles.postImage} />
-          </View>
-        ))}
-      </ScrollView>
+      <FlatList
+        data={entriesList}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => item.postID ? item.postID.toString() : index.toString()}
+      />
 
       <View style={styles.footer}>
         <Text style={styles.footerText}>This is a footer</Text>
@@ -103,4 +108,5 @@ function App() {
     </View>
   )
 }
+
 export default App;

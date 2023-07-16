@@ -1,13 +1,12 @@
-import { Actor, HttpAgent, Identity } from '@dfinity/agent'
+import { Actor, HttpAgent, } from '@dfinity/agent'
 
 // @ts-ignore
 import { idlFactory, _SERVICE } from './swopBackend/backend.did'
 
 import { BACKEND_CANISTER_ID, IC_HOST } from '../config'
 
-export const getBackendActor = async (identity?: Identity) => {
+export const getBackendActor = async () => {
   const agent = new HttpAgent({
-    identity,
     host: IC_HOST,
   })
 
