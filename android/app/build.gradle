@@ -113,7 +113,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.wrappedic"
+    namespace 'com.sebfromrio.wrappedic'
     defaultConfig {
         applicationId 'com.sebfromrio.wrappedic'
         minSdkVersion rootProject.ext.minSdkVersion
