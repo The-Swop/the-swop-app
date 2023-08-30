@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/ico" href="/frontend/assets/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Swop Web App</title>
+  <meta content="The Swop's mobile app aims to deliver crypto news, ecosystem developments, and project updates using an intuitive and interactive feed on Android and Apple." name="description" />
+  <meta name="keywords" content="The Swop, Crypto, Crypto News, News, Media, The Swop App" />
+  <meta name="author" content="GitHub: cp-daniel-mccoy" />
+</head>
+<body>
+<div id="root"></div>
+<script type="module">
+  /**
+   * @dfinity/agent requires this. Can be removed once it's fixed
+   */
+  import { Buffer } from "buffer"
+
+  window.global = window
+  window.Buffer = Buffer
+</script>
+<script type="module" src="/frontend/main.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "swop-app",
+  "version": "0.6.3",
+  "scripts": {
+    "setup": "npm run install && npm run setup-frontend && npm run setup-backend && echo 'Setup complete!'",
+    "install": "cd backend && npm install && npm audit fix && cd ../frontend && npm install && npm audit fix",
+    "setup-frontend": "cd frontend && dfx start --clean --background && dfx deploy && dfx stop",
+    "setup-backend": "cd backend && dfx start --clean --background && dfx canister create --all && dfx stop",
+    "dev-frontend": "cd frontend && npm run dev",
+    "build-backend": "cd backend && npm run build",
+    "build-frontend": "cd frontend && npm run build",
+    "deploy-frontend-ic": "cd frontend && dfx deploy --network ic",
+    "deploy-backend-ic": "cd backend && dfx canister --network ic install backend --wasm .azle/backend/backend.wasm.gz --mode reinstall -y"
+  },
+  "dependencies": {
+    "@dfinity/agent": "0.15.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.6",
+    "@types/react": "^17.0.20",
+    "@types/react-dom": "^17.0.9",
+    "@vitejs/plugin-react-refresh": "^1.3.6",
+    "buffer": "^6.0.3",
+    "typescript": "^4.4.3",
+    "vite": "^2.5.7"
+  }
+}

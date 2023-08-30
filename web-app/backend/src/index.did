@@ -1,0 +1,11 @@
+type CreatePostResult = variant { ok : Post; err : text };
+type Post = record { id : nat; media : text; content : text; link : text };
+type QueryPostResult = variant { ok : Post; err : text };
+service : () -> {
+  createPost : (text, text, text) -> (CreatePostResult);
+  deletePost : (nat) -> (text);
+  editPost : (nat, text, text, text) -> (text);
+  getAllPosts : () -> (vec Post) query;
+  getPostByID : (nat) -> (QueryPostResult) query;
+  seeOwner : () -> (text) query;
+}
