@@ -8,6 +8,7 @@ This is the overall web and mobile framework for The Swop's mobile application. 
 This repo has a one step setup command that you can run as long as you have NodeJS, NPM, and DFX installed.
 
 ```
+cd web-app
 npm run setup
 ```
 
@@ -16,6 +17,7 @@ npm run setup
 If you have never used Azle before or have recently updated it, Azle will attempt to install and setup all of the necessary Rust and Wasm components that it needs to function before it builds your canister. This will happen automatically but may take between 5-15 minutes to complete. This will only happen once, after that the build process will proceed as it would normally. You can build your smart contract by running:
 
 ```
+cd web-app
 npm run build-backend
 ```
 
