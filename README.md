@@ -4,7 +4,7 @@ Example React Native (in Expo) app.
 
 ## Canister
 
-Canister is already deployed on canister ID `s5ezz-7yaaa-aaaal-qalmq-cai`. So you can run on device without any localhost issues. Source code for canister is under `ic/Main.mo`
+
 
 ## Start packager
 
