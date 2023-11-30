@@ -1,49 +1,48 @@
-# Example of how to use Expo (React Native) with Internet Computer
 
-Example React Native (in Expo) app.
+# React Native App with DFINITY Integration
 
-## Canister
+This project demonstrates a React Native application integrated with DFINITY's Internet Computer, showcasing blockchain interaction in a mobile environment.
 
+## Getting Started
 
+### Start the packager
 
-## Start packager
-
+```bash
 yarn start
-
-## Run iOS app on Simulator
 ```
+
+### Run iOS app on Simulator
+
+```bash
 yarn ios
 ```
 
-## Run Android app on Simulator / connected Android device
-```
+### Run Android app on Simulator / connected Android device
+
+```bash
 yarn android
 ```
 
-## Running on iOS real device
-Download Expo Go app on iPhone device & once Expo dev tools appear in browser, scan QR code in app on device to test on device.
+### Running on iOS real device
 
-## Known issue on Android
+Download the Expo Go app on your iPhone device. Once the Expo development tools appear in the browser, scan the QR code with the app on your device to test on the device.
 
-Due BigInts not being supported on Android JS Engine. A while loop inside `@dfinity/candid` runs infinitely and thus `await actor.get()` in `HomeScreen.tsx` never returns/completes.
+## Known Issues
 
-Try to tap Run Query/navigate to screen, app is now locked and unresponsive.
+### Issue on Android
 
-Here's the code that runs forever:
+Due to BigInts not being supported on the Android JS Engine, a while loop inside `@dfinity/candid` runs infinitely, and thus `await actor.get()` in `HomeScreen.tsx` never returns/completes. When trying to tap 'Run Query' or navigate to the screen, the app becomes locked and unresponsive. Here's the problematic code snippet:
 
-```
+```javascript
 // From node_modules/@dfinity/candid/lib/cjs/utils/leb128.js
 // v0.9.2
 while (true) {
     const i = Number(value & BigInt(0x7f));
     value /= BigInt(0x80);
-    // this line is never === 0 and 
-    // thus while loop above runs forever
     if (value === BigInt(0)) {
         pipe.write([i]);
         break;
-    }
-    else {
+    } else {
         pipe.write([i | 0x80]);
     }
 }
@@ -51,10 +50,24 @@ while (true) {
 
 Using a simple `bigint` polyfill does not resolve the issue.
 
-*Potential solution: @dfinity JS libraries move to using [JSBI](https://github.com/GoogleChromeLabs/jsbi) so it works in an enviornment that does not support BigInt's natively*
+#### Potential Solution
 
-## Expo (React Native) JS Engine when running in Debug
+A potential solution is for @dfinity JS libraries to move to using [JSBI](https://github.com/GoogleChromeLabs/jsbi), allowing it to work in an environment that does not support BigInts natively.
 
-Shake phone, and tap Debug Remote JS, you'll notice the app now works on Android. This is because the JS Engine on Android in Debug mode supports BigInt 🤦‍♂️
+### Expo (React Native) JS Engine when running in Debug
 
-But that means normal mode and native builds do not #FunTimes 😉
+When the app is run in Debug mode on Android (by shaking the phone and tapping 'Debug Remote JS'), it works because the JS Engine supports BigInt. However, this is not the case in normal mode and native builds.
+
+## Authors
+
+[Your Name]
+[Your Contact Information]
+
+## License
+
+This project is licensed under the [Your License] - see the LICENSE.md file for details.
+
+## Acknowledgments
+
+- [React Native](https://reactnative.dev/)
+- [DFINITY Internet Computer](https://dfinity.org/)
