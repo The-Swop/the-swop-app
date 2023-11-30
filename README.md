@@ -8,10 +8,7 @@ Example React Native (in Expo) app.
 
 ## Start packager
 
-Run Expo packager
-```
 yarn start
-```
 
 ## Run iOS app on Simulator
 ```
