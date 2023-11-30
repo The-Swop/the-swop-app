@@ -35,6 +35,7 @@ function App() {
     try {
       backendActor = await getBackendActor();
     } catch (e) {
+      console.log (backendActor);
       console.error(e);
     }
   }
