@@ -28,6 +28,12 @@ yarn android
 Download the Expo Go app on your iPhone device. Once the Expo development tools appear in the browser, scan the QR code with the app on your device to test on the device.
 
 ## Known Issues
+The following polyfills are required and located in shim
+import { polyfill as polyfillEncoding } from 'react-native-polyfill-globals/src/encoding'
+import { polyfill as polyfillURL } from 'react-native-polyfill-globals/src/url'
+import { polyfill as polyfillCrypto } from 'react-native-polyfill-globals/src/crypto'
+import { polyfill as polyfillFetch } from 'react-native-polyfill-globals/src/fetch'
+import { polyfill as polyfillReadableStream } from 'react-native-polyfill-globals/src/readable-stream'
 
 ### Issue on Android
 
